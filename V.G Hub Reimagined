@@ -402,7 +402,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201f
 local Window = Library:CreateWindow(Config, CoreGui)
 
 local Main = Window:CreateTab("Main Tab")
---local Player = Window:CreateTab("Telports Tab")
+local Tele = Window:CreateTab("Telports Tab")
 local Eventz = Window:CreateTab("Events Tab")
 local Setin = Window:CreateTab("Settings Tab")
 
@@ -410,7 +410,9 @@ local AutoFarming = Main:CreateSection("Auto Farm Section")
 local EggsGifts = Main:CreateSection("Eggs & Gifts Section")
 local LoclPlayer = Main:CreateSection("Local Player Section")
 local Foods = Main:CreateSection("Most Foods Section")
-local LocalPlay = Main:CreateSection("Teleport Section")
+
+local LocalPlay = Tele:CreateSection("Teleport Section")
+local Hopper = Tele:CreateSection("Server Hopper Section")
 
 local Christmas = Eventz:CreateSection("Christmas Event Section (Active)")
 local Halloween = Eventz:CreateSection("Halloween Event Section (Deactivated)")
@@ -419,11 +421,10 @@ local MenuTab = Setin:CreateSection("Hub Info Section")
 local BackGroundTab = Setin:CreateSection("Background")
 local Esps = Setin:CreateSection("Esp Section")
 local Extras = Setin:CreateSection("Extra Feature Section")
-local Hopper = Setin:CreateSection("Server Hopper Section")
 --local Section5 = Tab2:CreateSection("Misc")
 local Tasks = {"hungry","sleepy","thirsty","bored","dirty","camping","sick","school","hot_spring","salon","pizza_party"}
 -------------
-local Toggle1 = AutoFarming:CreateToggle("AutoFarm Baby (Toggle After PetFarm)", Settings.BabyFarm, function(State)
+local Toggle1 = AutoFarming:CreateToggle("AutoFarm Baby (Toggle Before PetFarm)", Settings.BabyFarm, function(State)
 Settings.BabyFarm = State
 spawn(function()
 if Settings.BabyFarm then
@@ -512,10 +513,10 @@ local S = {
     "SimonSaysMinigame",
     "SpleefMinigame"
 }
-]]--
+
 local Toggle2 = Halloween:CreateToggle("Auto Candy", Settings.Candy, function(State)
 --Settings.Candy = State 
-
+--[[
 RunService.RenderStepped:connect(
     function()
         if Settings.Candy and not Settings.PetFarm then
@@ -628,7 +629,7 @@ spawn(
 )
 
 end)
-
+]]--
 local Toggle2 = Halloween:CreateToggle("Add HideAndSeek", Settings.HideAndSeek, function(State)
     --Settings.HideAndSeek = State
 end)
@@ -681,8 +682,30 @@ spawn(
 )
 end)
 
+local Baths = {
+    "StylishShower",
+    "CheapBathtub",
+    "ModernShower",
+    "Bathtub",
+    "GingerbreadShower",
+    "HotTub"
+}
+local Beds = {
+    "FancyPetBed",
+    "ModernPetBed",
+    "CircularPetBed",
+    "RectangularPetBed",
+    "NormalCrib",
+    "BasicCrib",
+    "RoyalCrib",
+    "PoshCrib"
+}
 
-local Toggle2 = AutoFarming:CreateToggle("PetFarm (Toggle Before AutoFarm Baby)", Settings.PetFarm, function(State)
+local AilmentFurnitues = {}
+local generic_shower = Baths
+local generic_crib = Beds
+
+local Toggle2 = AutoFarming:CreateToggle("PetFarm (Toggle After AutoFarm Baby)", Settings.PetFarm, function(State)
 Settings.PetFarm = State
 spawn(function()
 local Part = Instance.new("Part", Workspace)
@@ -1164,11 +1187,11 @@ end)
 local Button1 = Foods:CreateButton("Buy Vip Popcorn", function()
     ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "popcorn_vip", {})
 end)
-local Button1 = Foods:CreateButton("Buy Golden Apple", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "healing_apple", {})
-end)
 local Button1 = Foods:CreateButton("Buy Marshmallow", function()
     ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "marshmallow_on_a_stick", {})
+end)
+local Button1 = Foods:CreateButton("Buy Golden Apple", function()
+    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "healing_apple", {})
 end)
 local Button1 = LocalPlay:CreateButton("Go to Selected Location", function()
 Workspace.Gravity = 0
