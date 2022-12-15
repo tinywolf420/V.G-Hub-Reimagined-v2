@@ -916,7 +916,7 @@ a = {
     ["school"] = function(c)
         GoToStore("School")
         Player.Character.HumanoidRootPart.CFrame =
-            Workspace.Interiors.School.BuyIndicators["teachers_apple"].CFrame * CFrame.new(0, 0, 0)
+            Workspace.Interiors.School.BuyIndicators["teachers_apple"].CFrame * CFrame.new(0, 1, 0)
         repeat
             wait()
         until c.Parent ~= Player.PlayerGui.AilmentsMonitorApp.Ailments
