@@ -1,6 +1,6 @@
 local Config = {
-    WindowName = "V.G Hub - Adopt Me - By DreamCraft",
-    Color = Color3.fromRGB(82, 9, 252),
+    WindowName = "V.G Hub",
+    Color = Color3.fromRGB(255, 128, 64),
     Keybind = Enum.KeyCode.RightControl
 }
 
@@ -61,7 +61,7 @@ local Name = "Adopt me" .. " " .. Player.Name .. ".json"
 
 Des = {}
 if makefolder then
-    makefolder("V.G Hub - Adopt Me - By DreamCraft")
+    makefolder("V.G Hub")
 end
 
 local Settings
@@ -69,18 +69,18 @@ local Settings
 if
     not pcall(
         function()
-            readfile("V.G Hub - Adopt Me - By DreamCraft//" .. Name)
+            readfile("V.G Hub//" .. Name)
         end
     )
  then
-    writefile("V.G Hub - Adopt Me - By DreamCraft//" .. Name, HttpService:JSONEncode(Des))
+    writefile("V.G Hub//" .. Name, HttpService:JSONEncode(Des))
 end
-if readfile("V.G Hub - Adopt Me - By DreamCraft//" .. Name) then
-    Settings = HttpService:JSONDecode(readfile("V.G Hub - Adopt Me - By DreamCraft//" .. Name))
+if readfile("V.G Hub//" .. Name) then
+    Settings = HttpService:JSONDecode(readfile("V.G Hub//" .. Name))
 end
 
 local function Save()
-    writefile("V.G Hub - Adopt Me - By DreamCraft//" .. Name, HttpService:JSONEncode(Settings))
+    writefile("V.G Hub//" .. Name, HttpService:JSONEncode(Settings))
 end
 
 
@@ -170,6 +170,16 @@ local Baths = {
     "HotTub"
 }
 
+local FreeFoods = {
+    "ham_vip",
+    "water_vip",
+    "chocolate_milk_vip",
+    "popcorn_vip",
+    "marshmallow_on_a_stick",
+    "healing_apple",
+    "teachers_apple",
+}
+
 local Beds = {
     "FancyPetBed",
     "ModernPetBed",
@@ -198,9 +208,26 @@ local Egg = {
     "japan_2022_egg",
     "cracked_egg",
     "regular_pet_egg",
-    "royal_egg"
+    "royal_egg",
+    "retired_egg"
 }
 
+local gifts = {
+    "smallgift",
+    "biggift",
+    "massivegift",
+    "legend_hat_2022_simple_chest",
+    "legend_hat_2022_regal_chest"
+}
+local Obbys = {
+    "miniworld",
+    "coastal_climb",
+    "shipwreck_bay",
+    "ancient_ruins",
+    "lonelypeak",
+    "pyramid",
+    "tinyisles"
+}
 local Part = Instance.new("Part")
 Part.Name = "P"
 Part.Size = Vector3.new(9e9,0,9e9)
@@ -233,7 +260,13 @@ function Home()
         return false
     end
 end
-
+function PersonHome()
+    if Workspace.HouseInteriors.blueprint:FindFirstChildWhichIsA("Model") then
+        return Workspace.HouseInteriors.blueprint:FindFirstChildWhichIsA("Model").Name
+    else
+        return false
+    end
+end 
 function Store()
     if Workspace.Interiors:FindFirstChildWhichIsA("Model") then
         if
@@ -320,6 +353,16 @@ function GoToMainMap()
     return false
 end
 
+function GoToPersonsHouse(Name)
+    SetLocation("housing","MainDoor",{["house_owner"] = Players[Name]})
+    while not PersonHome() do
+        wait()
+    end 
+    if PersonHome() then
+        return true 
+    end 
+    return false
+end 
 function Bed(Name)
     GoToHome()
     for i, v in pairs(Workspace.HouseInteriors.furniture:GetChildren()) do
@@ -405,30 +448,17 @@ end
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/test"))()
 local Window = Library:CreateWindow(Config, CoreGui)
 
-local Main = Window:CreateTab("Main Tab")
-local Tele = Window:CreateTab("Telports Tab")
-local Eventz = Window:CreateTab("Events Tab")
-local Setin = Window:CreateTab("Settings Tab")
+local Tab1 = Window:CreateTab("Adopt Me")
+local Tab2 = Window:CreateTab("UI Settings")
 
-local AutoFarming = Main:CreateSection("Auto Farm Section")
-local EggsGifts = Main:CreateSection("Eggs & Gifts Section")
-local LoclPlayer = Main:CreateSection("Local Player Section")
-local Foodz = Main:CreateSection("Most Foods Section")
-
-local LocalPlay = Tele:CreateSection("Teleport Section")
-local Hopper = Tele:CreateSection("Server Hopper Section")
-
-local Christmas = Eventz:CreateSection("Christmas Event Section (Active)")
---local Halloween = Eventz:CreateSection("Halloween Event Section (Deactivated)")
-
-local MenuTab = Setin:CreateSection("Hub Info Section")
-local BackGroundTab = Setin:CreateSection("Background")
-local Esps = Setin:CreateSection("Esp Section")
-local Extras = Setin:CreateSection("Extra Feature Section")
+local Section1 = Tab1:CreateSection("")
+local Section2 = Tab1:CreateSection("Second Section")
+local Section3 = Tab2:CreateSection("Menu")
+local Section4 = Tab2:CreateSection("Background")
 --local Section5 = Tab2:CreateSection("Misc")
 
 -------------
-local Toggle1 = AutoFarming:CreateToggle("AutoFarm Baby", Settings.BabyFarm, function(State)
+local Toggle1 = Section1:CreateToggle("AutoFarm Baby", Settings.BabyFarm, function(State)
 Settings.BabyFarm = State
 spawn(function()
 if Settings.BabyFarm then
@@ -455,11 +485,11 @@ end)
 end)
 
 
-local Toggle2 = Extras:CreateToggle("CPU Usage Improver", Settings.Render, function(State)
+local Toggle2 = Section1:CreateToggle("CPU Usage Improver", Settings.Render, function(State)
     Settings.Render = State
 end)
 
-local Toggle2 = Christmas:CreateToggle("Auto SnowBall", Settings.Cand, function(State)
+local Toggle2 = Section1:CreateToggle("Auto SnowBall", Settings.Cand, function(State)
 Settings.Cand = State
 
 
@@ -521,8 +551,7 @@ local S = {
     "SimonSaysMinigame",
     "SpleefMinigame"
 }
-
-local Toggle2 = Halloween:CreateToggle("Auto Candy", Settings.Candy, function(State)
+local Toggle2 = Section1:CreateToggle("Auto Candy", Settings.Candy, function(State)
 Settings.Candy = State
 
 RunService.RenderStepped:connect(
@@ -637,15 +666,18 @@ spawn(
 )
 
 end)
-
-local Toggle2 = Halloween:CreateToggle("Add HideAndSeek", Settings.HideAndSeek, function(State)
+local Toggle2 = Section1:CreateToggle("Add HideAndSeek", Settings.HideAndSeek, function(State)
     Settings.HideAndSeek = State
 end)
+
+
 ]]---
 
 
 
-local Toggle2 = AutoFarming:CreateToggle("Auto Neon", Settings.Neon, function(State)
+
+
+local Toggle2 = Section1:CreateToggle("Auto Neon", Settings.Neon, function(State)
 Settings.Neon = State
 spawn(
     function()
@@ -695,7 +727,7 @@ end)
 local AilmentFurnitues = {}
 
 
-local Toggle2 = AutoFarming:CreateToggle("PetFarm", Settings.PetFarm, function(State)
+local Toggle2 = Section1:CreateToggle("PetFarm", Settings.PetFarm, function(State)
 Settings.PetFarm = State
 
 RunService.RenderStepped:connect(
@@ -894,7 +926,7 @@ a = {
         GoToMainMap()
 
         Player.Character.HumanoidRootPart.CFrame =
-             CFrame.new(Workspace:FindFirstChild("StaticMap"):FindFirstChild("Campsite"):FindFirstChild("CampsiteOrigin").Position + Vector3.new(0,5,0))
+             CFrame.new(Workspace:WaitForChild("StaticMap"):WaitForChild("Campsite"):WaitForChild("CampsiteOrigin").Position + Vector3.new(0,5,0))
         repeat
             wait()
         until c.Parent ~= Player.PlayerGui.AilmentsMonitorApp.Ailments
@@ -940,12 +972,12 @@ spawn(
     end
 )
 end)
-local Dropdown = AutoFarming:CreateDropdown("Pets", List, function(Name)
+local Dropdown = Section1:CreateDropdown("Pets", List, function(Name)
 	Settings.Key = PetsShow[Name]
 end)
 
 
-local Toggle434 = AutoFarming:CreateToggle("Switch Out when full grown", Settings.SwitchOutFullyGrown, function(State)
+local Toggle434 = Section1:CreateToggle("Switch Out when full grown", Settings.SwitchOutFullyGrown, function(State)
 Settings.SwitchOutFullyGrown = State
 StarterGui:SetCore(
     "SendNotification",
@@ -990,7 +1022,7 @@ spawn(
 
 end)
 
-local Toggle434 = Christmas:CreateToggle("Ginger Bread Farm", Settings.Start, function(State)
+local Toggle434 = Section1:CreateToggle("Ginger Bread Farm", Settings.Start, function(State)
 Settings.Start = State
 spawn(function()
     while wait() and Settings.Start do
@@ -1007,9 +1039,8 @@ end)
 end)
 
 
-gifts = {"smallgift","biggift","massivegift","legend_hat_2022_simple_chest","legend_hat_2022_regal_chest"}
 
-local Toggle4832 = AutoFarming:CreateToggle("Switch Out Eggs", Settings.SwitchOutEgg, function(State)
+local Toggle4832 = Section1:CreateToggle("Switch Out Eggs", Settings.SwitchOutEgg, function(State)
 Settings.SwitchOutEgg = State
 
 StarterGui:SetCore(
@@ -1055,7 +1086,7 @@ spawn(
 
 end)
 
-local Toggle188908 = AutoFarming:CreateToggle("Auto Heal Others", Settings.HealOthers, function(State)
+local Toggle188908 = Section1:CreateToggle("Auto Heal Others", Settings.HealOthers, function(State)
 Settings.HealOthers = State
 spawn(
     function()
@@ -1067,7 +1098,7 @@ spawn(
 )
 end)
 
-local Toggle1 = LoclPlayer:CreateToggle("No Baby PickUp", nil, function(State)
+local Toggle1 = Section1:CreateToggle("No Baby PickUp", nil, function(State)
 Settings.Family = State
 if Settings.Family then
     ReplicatedStorage.API["FamilyAPI/CreateFamily"]:InvokeServer() 
@@ -1076,7 +1107,7 @@ elseif not Settings.Family then
 end 
 end)
 
-local Toggle1 = LoclPlayer:CreateToggle("Fly Ride All Pets", Settings.FlyPets, function(State)
+local Toggle1 = Section1:CreateToggle("Fly Ride All Pets", Settings.FlyPets, function(State)
 Settings.FlyPets = State
 if Settings.FlyPets then
     FlyPets(true)
@@ -1085,35 +1116,36 @@ elseif not Settings.FlyPets then
 end
 end)
 
-local Dropdown = EggsGifts:CreateDropdown("Eggs", Egg, function(Name)
+local Dropdown = Section1:CreateDropdown("Eggs", Egg, function(Name)
 	Settings.Egg = Name
 end)
-local Toggle13322113 = EggsGifts:CreateToggle("Auto Buy Egg", Settings.DoDoPants1, function(State)
-    Settings.DoDoPants1 = State
-    while Settings.DoDoPants1 do wait()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets",Settings.Egg,{})
-end end)
 
-local Dropdown = EggsGifts:CreateDropdown("Gift", gifts, function(Name)
+local Dropdown = Section1:CreateDropdown("Gift", gifts, function(Name)
 	Settings.gifts = Name
 end)
 
-local Toggle13322113 = EggsGifts:CreateToggle("Auto Buy Gifts", Settings.DoDoPants, function(State)
-    Settings.DoDoPants = State
-    while Settings.DoDoPants do wait()
-    ReplicatedStorage.API:FindFirstChild("ShopAPI/BuyItem"):InvokeServer("gifts",Settings.gifts,{})
+
+
+local Toggle13322113 = Section1:CreateToggle("Auto Buy Gifts", Settings.DoDoPants, function(State)
+Settings.DoDoPants = State
+while Settings.DoDoPants do wait()
+ReplicatedStorage.API:FindFirstChild("ShopAPI/BuyItem"):InvokeServer("gifts",Settings.gifts,{})
+end end)
+local Toggle13322113 = Section1:CreateToggle("Auto Buy Egg", Settings.DoDoPants1, function(State)
+Settings.DoDoPants1 = State
+while Settings.DoDoPants1 do wait()
+ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets",Settings.Egg,{})
 end end)
 
-local Obbys = {"miniworld","coastal_climb","shipwreck_bay","ancient_ruins","lonelypeak","pyramid","tinyisles"
-}
 
-local Button1 = Extras:CreateButton("Grab Bagdes", function()
+
+local Button1 = Section1:CreateButton("Grab Bagdes", function()
 for i,v in pairs(Obbys) do wait(0.5)
     ReplicatedStorage.API["MinigameAPI/FinishObby"]:FireServer(v)
 end 
 end)
 
-local Toggle13322113 = EggsGifts:CreateToggle("Auto Open Gifts", Settings.System, function(State)
+local Toggle13322113 = Section1:CreateToggle("Auto Open Gifts", Settings.System, function(State)
 Settings.System = State
 spawn(function()
 while Settings.System do
@@ -1137,52 +1169,55 @@ end
 end)
 end)
 
-local Dropdown = LocalPlay:CreateDropdown("Locations", Stores, function(Name)
-	Settings.Locations = Name
+local Dropdown = Section2:CreateDropdown("Locations", Stores, function(Name)
+    Workspace.Gravity = 0
+    GoToStore(Name)
+    Player.Character.HumanoidRootPart.CFrame = Workspace.Interiors:FindFirstChildWhichIsA('Model').PrimaryPart.CFrame:ToWorldSpace(CFrame.new(0, 0, -6))
+    Workspace.Gravity = 196.2
 end)
-Foodz:CreateLabel("(v------------[ Healing For Apple ]----------v)")
-local Button1 = Foodz:CreateButton("Buy Golden Apple", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "healing_apple", {})
+
+
+
+Section2:CreateTextBox("Teleport To Said Users House", "UserName Here", false, function(String)
+for i,v in pairs(Players:GetPlayers()) do
+    if v.Name == (String) or v.Name:find(String) or v.DisplayName == String or v.DisplayName:find(String) then
+        Workspace.Gravity = 0 
+        GoToPersonsHouse(v.Name)
+    
+        Player.Character.HumanoidRootPart.CFrame = Workspace.HouseInteriors.blueprint:FindFirstChildWhichIsA('Model'):GetModelCFrame():ToWorldSpace(CFrame.new(0, 0, -6)) 
+        Workspace.Gravity = 196.2
+    end 
+end 
 end)
-Foodz:CreateLabel("(v------------------[ Non Vip ]----------------v)")
-local Button1 = Foodz:CreateButton("Buy Apple And Water", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "apple", {})
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "water", {})
-end)
-local Button1 = Foodz:CreateButton("Buy Marshmallow", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "marshmallow_on_a_stick", {})
-end)
-Foodz:CreateLabel("(v------------------[ Vip Only ]----------------v)")
-local Button1 = Foodz:CreateButton("Buy Vip Chocolate Milk", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "chocolate_milk", {})
-end)
-local Button1 = Foodz:CreateButton("Buy Vip Ham", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "ham", {})
-end)
-local Button1 = Foodz:CreateButton("Buy Vip Popcorn", function()
-    ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "popcorn_vip", {})
-end)
-local Button1 = LocalPlay:CreateButton("Go to Selected Location", function()
-Workspace.Gravity = 0
-GoToStore(Settings.Locations)
-Player.Character.HumanoidRootPart.CFrame = Workspace.Interiors:FindFirstChildWhichIsA('Model').PrimaryPart.CFrame:ToWorldSpace(CFrame.new(0, 0, -6))
-Workspace.Gravity = 196.2
-end)
-local Button1 = LocalPlay:CreateButton("Teleport Home", function()
+
+local Button1 = Section2:CreateButton("Teleport Home", function()
 Workspace.Gravity = 0
 GoToHome() wait()
 Player.Character.HumanoidRootPart.CFrame = Workspace.HouseInteriors.blueprint:FindFirstChildWhichIsA('Model'):GetModelCFrame():ToWorldSpace(CFrame.new(0, 0, -6)) 
 Workspace.Gravity = 196.2
 end)
-local Button1 = LocalPlay:CreateButton("Teleport MainMap", function()
+local Button1 = Section2:CreateButton("Teleport MainMap", function()
 Workspace.Gravity = 0
 GoToMainMap()
-Player.Character.HumanoidRootPart.CFrame = Workspace.Interiors:FindFirstChildWhichIsA("Model").Doors["Neighborhood/MainDoor"].WorkingParts.TouchToEnter.CFrame:ToWorldSpace(CFrame.new(0, 0, -6))
+Player.Character.HumanoidRootPart.CFrame = Workspace.Interiors:FindFirstChildWhichIsA("Model"):GetModelCFrame():ToWorldSpace(CFrame.new(0, 0, -6))
 Player.Character.HumanoidRootPart.CFrame = CFrame.new(-247.35408, 17.3820152, -1518.88879)  Workspace.Gravity = 196.2 
+end)
+local Toggle1 = Section2:CreateToggle("Auto Buy Free Food", Settings.JoYes, function(State)
+Settings.JoYes = State
+spawn(function()
+    while Settings.JoYes and wait() do
+        pcall(function()
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", Settings.Food, {})
+        end)
+    end 
+end)
+end)
+local Dropdown = Section2:CreateDropdown("Free Foods", FreeFoods, function(Name)
+    Settings.Food = Name
 end)
 
 
-local Button1 = Extras:CreateButton("SS Infinite Money", function()
+local Button1 = Section2:CreateButton("SS Infinite Money", function()
 local Player = Players.LocalPlayer
 local Kick = Player.Kick
 Kick(Player,"You are most likely banned if you wish to appeal go to https://playadopt.me/support/")
@@ -1193,7 +1228,7 @@ Kick(Player,"What A Fool")
 wait(3)
 game:Shutdown()
 end)
-local Toggle1 = LoclPlayer:CreateToggle("Enable WalkSpeed/JumpPower", Settings.Go, function(State)
+local Toggle1 = Section2:CreateToggle("Enable WalkSpeed/JumpPower", Settings.Go, function(State)
 Settings.Go = State
 RunService.Stepped:connect(
     function()
@@ -1209,24 +1244,27 @@ RunService.Stepped:connect(
 
 end)
 
-local TextBox1 = Extras:CreateTextBox("Fps Cap", "Only numbers", true, function(Value)
+
+
+
+local TextBox1 = Section2:CreateTextBox("Fps Cap", "Only numbers", true, function(Value)
     Settings.Fps = Value
 end)
 
-local TextBox1 = LoclPlayer:CreateTextBox("WalkSpeed", "Only numbers", true, function(Value)
+local TextBox1 = Section2:CreateTextBox("WalkSpeed", "Only numbers", true, function(Value)
     Settings.WalkSpeed = Value
 end)
-local TextBox1 = LoclPlayer:CreateTextBox("JumpPower", "Only numbers", true, function(Value)
+local TextBox1 = Section2:CreateTextBox("JumpPower", "Only numbers", true, function(Value)
     Settings.JumpPower = Value
 end)
 
-local TextBox1 = Hopper:CreateTextBox("Seconds Until ServerHop", "Only numbers", true, function(Value)
+local TextBox1 = Section2:CreateTextBox("Seconds Until ServerHop", "Only numbers", true, function(Value)
     Settings.Seconds = Value
 end)
 
 
 
-local Toggle1 = LoclPlayer:CreateToggle("Infinite Jump", Settings.InfiniteJump, function(State)
+local Toggle1 = Section2:CreateToggle("Infinite Jump", Settings.InfiniteJump, function(State)
 Settings.InfiniteJump = State
 UserInputService.JumpRequest:connect(
     function()
@@ -1238,28 +1276,28 @@ UserInputService.JumpRequest:connect(
 end)
 
 local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/1201for/V.G-Hub/main/Karrot-Esp"))()
-local Toggle1 = Esps:CreateToggle("Enable Esp", Settings.Esp, function(State)
+local Toggle1 = Section1:CreateToggle("Enable Esp", Settings.Esp, function(State)
     Settings.Esp = State
     ESP:Toggle(Settings.Esp)
 end)
-local Toggle1 = Esps:CreateToggle("Player Esp", Settings.PlayerEsp, function(State)
+local Toggle1 = Section1:CreateToggle("Player Esp", Settings.PlayerEsp, function(State)
     Settings.PlayerEsp = State
     ESP.Players = Settings.PlayerEsp
 end)
-local Toggle1 = Esps:CreateToggle("Tracers Esp", Settings.Tracers, function(State)
+local Toggle1 = Section1:CreateToggle("Tracers Esp", Settings.Tracers, function(State)
     Settings.Tracers = State
     ESP.Tracers = Settings.Tracers
 end)
-local Toggle1 = Esps:CreateToggle("Name Esp", Settings.EspNames, function(State)
+local Toggle1 = Section1:CreateToggle("Name Esp", Settings.EspNames, function(State)
     ESP.Names = Settings.EspNames
     Settings.EspNames = State
 end)
-local Toggle1 = Esps:CreateToggle("Boxes Esp", Settings.Boxes, function(State)
+local Toggle1 = Section1:CreateToggle("Boxes Esp", Settings.Boxes, function(State)
     Settings.Boxes = State
     ESP.Boxes = Settings.Boxes
 end)
 
-local Toggle1 = Extras:CreateToggle("Invisicam", Settings.Sorry, function(State)
+local Toggle1 = Section2:CreateToggle("Invisicam", Settings.Sorry, function(State)
 Settings.Sorry = State
 if Settings.Sorry then
     Player.DevCameraOcclusionMode = "Invisicam"
@@ -1269,7 +1307,7 @@ end
 end)
 
 
-local Toggle1 = Extras:CreateToggle("N Noclip", Settings.Sex1, function(State)
+local Toggle1 = Section2:CreateToggle("N Noclip", Settings.Sex1, function(State)
 noclips = false
 Settings.Sex1 = State
 Player:GetMouse().KeyDown:connect(
@@ -1300,7 +1338,7 @@ RunService.Stepped:connect(
 
 end)
 
-local Toggle1 = Extras:CreateToggle("G Noclip", Settings.Sex, function(State)
+local Toggle1 = Section2:CreateToggle("G Noclip", Settings.Sex, function(State)
 Settings.Sex = State
 noclip = false
 RunService.Stepped:connect(
@@ -1322,7 +1360,7 @@ Player:GetMouse().KeyDown:connect(
     end
 )
 end)
-local Toggle1 = LoclPlayer:CreateToggle("= Fly", Settings.Sex2, function(State)
+local Toggle1 = Section2:CreateToggle("H Fly", Settings.Sex2, function(State)
 Settings.Sex2 = State
 local Max = 0
 local Players = game.Players
@@ -1330,7 +1368,7 @@ local LP = Players.LocalPlayer
 local Mouse = LP:GetMouse()
 Mouse.KeyDown:connect(
     function(k)
-        if k:lower() == "=" then
+        if k:lower() == "h" then
             Max = Max + 1
             getgenv().Fly = false
             if Settings.Sex2 then
@@ -1448,7 +1486,7 @@ Mouse.KeyDown:connect(
 )
 end)
 
-local Button1 = Extras:CreateButton("Anti Lag", function()
+local Button1 = Section2:CreateButton("Anti Lag", function()
 for _, v in pairs(Workspace:GetDescendants()) do
     if v:IsA("BasePart") and not v.Parent:FindFirstChild("Humanoid") then
         v.Material = Enum.Material.SmoothPlastic
@@ -1459,7 +1497,7 @@ for _, v in pairs(Workspace:GetDescendants()) do
 end
 end)
 
-local Button1 = LocalPlay:CreateButton("Teleport to RandomPlayer", function()
+local Button1 = Section2:CreateButton("Teleport to RandomPlayer", function()
 local randomPlayer = game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
 
 Player.Character.HumanoidRootPart.CFrame =
@@ -1471,7 +1509,7 @@ Player.Character.HumanoidRootPart.CFrame =
     )
 )
 end)
-local Button1 = Extras:CreateButton("Lag Switch F3", function()
+local Button1 = Section2:CreateButton("Lag Switch F3", function()
 local ass = false
 local bitch = settings()
 
@@ -1485,7 +1523,7 @@ game:service "UserInputService".InputEnded:connect(
 )
 end) 
 
-local Button1 = Hopper:CreateButton("ServerHop", function()
+local Button1 = Section2:CreateButton("ServerHop", function()
 local PlaceID = game.PlaceId
 local AllIDs = {}
 local foundAnything = ""
@@ -1558,34 +1596,31 @@ end
 -- If you'd like to use a script before server hopping (Like a Automatic Chest collector you can put the Tween() after it collected everything.
 Tween() 
 end)
-local Button1 = Hopper:CreateButton("Rejoin", function()
+local Button1 = Section2:CreateButton("Rejoin", function()
 game:GetService("TeleportService"):Teleport(game.PlaceId, Player) end)
 
 
-local Button1 = MenuTab:CreateButton("Save Settings", function()
+local Button1 = Section2:CreateButton("Save Settings", function()
 Save()
 end)
-local Toggle3 = MenuTab:CreateToggle("UI Toggle", nil, function(State)
+local Toggle3 = Section3:CreateToggle("UI Toggle", nil, function(State)
 	Window:Toggle(State)
 end)
 Toggle3:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), function(Key)
 	Config.Keybind = Enum.KeyCode[Key]
 end)
 Toggle3:SetState(true)
-MenuTab:CreateLabel("Credits DekuDimz#7960")
-MenuTab:CreateLabel("Credits AlexR32#3232 Ui")
-MenuTab:CreateLabel("Credits Unimonix#8812 Ui")
-MenuTab:CreateLabel("Credits Applebee")
-local Colorpicker3 = MenuTab:CreateColorpicker("UI Color", function(Color)
+Section3:CreateLabel("Credits DekuDimz#7960")
+Section3:CreateLabel("Credits AlexR32#3232 Ui")
+Section3:CreateLabel("Credits Applebee")
+local Colorpicker3 = Section3:CreateColorpicker("UI Color", function(Color)
 	Window:ChangeColor(Color)
 end)
 Colorpicker3:UpdateColor(Config.Color)
 
 -- credits to jan for patterns
-local Dropdown3 = BackGroundTab:CreateDropdown("Pick Background Image", {"Bones & Paws","VG Hub","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
-	if Name == "Bones & Paws" then
-		Window:SetBackground("11702783647")
-    elseif Name == "VG Hub" then
+local Dropdown3 = Section4:CreateDropdown("Image", {"Default","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
+	if Name == "Default" then
 		Window:SetBackground("2151741365")
 	elseif Name == "Hearts" then
 		Window:SetBackground("6073763717")
@@ -1601,19 +1636,19 @@ local Dropdown3 = BackGroundTab:CreateDropdown("Pick Background Image", {"Bones 
 		Window:SetBackground("5553946656")
 	end
 end)
-Dropdown3:SetOption("Bones & Paws")
+Dropdown3:SetOption("Default")
 
-local Colorpicker4 = BackGroundTab:CreateColorpicker("Color", function(Color)
+local Colorpicker4 = Section4:CreateColorpicker("Color", function(Color)
 	Window:SetBackgroundColor(Color)
 end)
-Colorpicker4:UpdateColor(Color3.fromRGB(101, 5, 255))
+Colorpicker4:UpdateColor(Color3.new(1,1,1))
 
-local Slider3 = BackGroundTab:CreateSlider("Transparency",0,1,nil,false, function(Value)
+local Slider3 = Section4:CreateSlider("Transparency",0,1,nil,false, function(Value)
 	Window:SetBackgroundTransparency(Value)
 end)
 Slider3:SetValue(0)
 
-local Slider4 = BackGroundTab:CreateSlider("Tile Scale",0,1,nil,false, function(Value)
+local Slider4 = Section4:CreateSlider("Tile Scale",0,1,nil,false, function(Value)
 	Window:SetTileScale(Value)
 end)
 Slider4:SetValue(0.5)
