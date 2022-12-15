@@ -12,7 +12,7 @@ getgenv().Get =
         end
     }
 )
---[[
+
 local CoreGui = Get.CoreGui
 local StarterGui = Get.StarterGui
 local Lighting = Get.Lighting
@@ -56,7 +56,6 @@ for Index = 1, 50, 2 do
 end
 BlurEffect:Destroy()
 ScreenGui:Destroy()
-]]--
 
 
 
