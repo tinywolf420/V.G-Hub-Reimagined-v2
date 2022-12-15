@@ -459,6 +459,7 @@ local LPR = Main:CreateSection("Local Player")
 local Telez = Main:CreateSection("Teleport Section")
 
 local Christmas = Eventz:CreateSection("Christmas Event Section (Active)")
+local Halloween = Eventz:CreateSection("Halloween Event Section (Deactivated)")
 
 --local Telez = Teleportz:CreateSection("Teleport Section")
 local Hopper = Teleportz:CreateSection("Server Hopper Section")
@@ -563,9 +564,10 @@ local S = {
     "SimonSaysMinigame",
     "SpleefMinigame"
 }
+]]--
 local Toggle2 = Halloween:CreateToggle("Auto Candy", Settings.Candy, function(State)
-Settings.Candy = State
-
+    --[[
+    Settings.Candy = State
 RunService.RenderStepped:connect(
     function()
         if Settings.Candy and not Settings.PetFarm then
@@ -676,15 +678,12 @@ spawn(
         end
     end
 )
-
+]]--
 end)
+
 local Toggle2 = Halloween:CreateToggle("Add HideAndSeek", Settings.HideAndSeek, function(State)
-    Settings.HideAndSeek = State
+--Settings.HideAndSeek = State
 end)
-
-
-]]---
-
 
 
 
@@ -1109,28 +1108,37 @@ spawn(
     end
 )
 end)
+local Toggle1 = EggsGifts:CreateToggle("Auto Buy Free Food", Settings.JoYes, function(State)
+Settings.JoYes = State
+spawn(function()
+    while Settings.JoYes and wait() do
+        pcall(function()
+            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", Settings.Food, {})
+        end)
+    end 
+end)
+end)
+local Dropdown = EggsGifts:CreateDropdown("Free Foods", FreeFoods, function(Name)
+    Settings.Food = Name
+end)
 
-
+local Toggle13322113 = EggsGifts:CreateToggle("Auto Buy Egg", Settings.DoDoPants1, function(State)
+Settings.DoDoPants1 = State
+while Settings.DoDoPants1 do wait()
+ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets",Settings.Egg,{})
+end end)
 local Dropdown = EggsGifts:CreateDropdown("Eggs", Egg, function(Name)
 	Settings.Egg = Name
 end)
-
-local Dropdown = EggsGifts:CreateDropdown("Gift", gifts, function(Name)
-	Settings.gifts = Name
-end)
-
-
 
 local Toggle13322113 = EggsGifts:CreateToggle("Auto Buy Gifts", Settings.DoDoPants, function(State)
 Settings.DoDoPants = State
 while Settings.DoDoPants do wait()
 ReplicatedStorage.API:FindFirstChild("ShopAPI/BuyItem"):InvokeServer("gifts",Settings.gifts,{})
 end end)
-local Toggle13322113 = EggsGifts:CreateToggle("Auto Buy Egg", Settings.DoDoPants1, function(State)
-Settings.DoDoPants1 = State
-while Settings.DoDoPants1 do wait()
-ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("pets",Settings.Egg,{})
-end end)
+local Dropdown = EggsGifts:CreateDropdown("Gift", gifts, function(Name)
+	Settings.gifts = Name
+end)
 
 
 
@@ -1210,19 +1218,6 @@ Player.Character.HumanoidRootPart.CFrame =
 )
 end)
 
-local Dropdown = EggsGifts:CreateDropdown("Free Foods", FreeFoods, function(Name)
-    Settings.Food = Name
-end)
-local Toggle1 = EggsGifts:CreateToggle("Auto Buy Free Food", Settings.JoYes, function(State)
-Settings.JoYes = State
-spawn(function()
-    while Settings.JoYes and wait() do
-        pcall(function()
-            ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", Settings.Food, {})
-        end)
-    end 
-end)
-end)
 
 local Button1 = Extras:CreateButton("SS Infinite Money", function()
 local Player = Players.LocalPlayer
@@ -1625,10 +1620,16 @@ end)
 Colorpicker3:UpdateColor(Config.Color)
 
 -- credits to jan for patterns
-local Dropdown3 = BackGroundTab:CreateDropdown("Image", {"Bones & Paws","VG Hub","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
+local Dropdown3 = BackGroundTab:CreateDropdown("Image", {"Bones & Paws","Rain Drops","Cyphered Code","Shakura","VG Hub","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"}, function(Name)
 	if Name == "Bones & Paws" then
 		Window:SetBackground("11702783647")
-    elseif Name == "Default" then
+    elseif Name == "Rain Drops" then
+		Window:SetBackground("11829007930")
+    elseif Name == "Cyphered Code" then
+		Window:SetBackground("11828950291")
+    elseif Name == "Shakura" then
+		Window:SetBackground("11829051667")
+    elseif Name == "VG Hub" then
 		Window:SetBackground("2151741365")
 	elseif Name == "Hearts" then
 		Window:SetBackground("6073763717")
