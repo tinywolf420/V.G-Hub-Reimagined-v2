@@ -37,13 +37,15 @@ if game.PlaceId == 920587237 then
 	local Remotes = {}
 	local Inventorys = ReplicatedStorage.ClientDB.Inventory
 	local InventoryGiftsSubDB = require(Inventorys.InventoryGiftsSubDB)
-	
-	OrionLib:MakeNotification({
-		Name = "You Have Executed Successfully",
-		Content = "Thanks for executing! Hope You Enjoy Your Time Playing With Orion!",
-		Image = "rbxassetid://4483345998",
-		Time = 10
-	})
+
+	local vu = game:GetService("VirtualUser")
+	game:GetService("Players").LocalPlayer.Idled:connect(
+	function()
+	vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	wait(1)
+	vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	end)
+
 
 	_G.AutoHeal = true
 	_G.NoBabyPickUp = true
@@ -62,6 +64,7 @@ if game.PlaceId == 920587237 then
 			ReplicatedStorage.API["FamilyAPI/LeaveFamily"]:InvokeServer()
 		end
 	end
+
 	local ShTab = Window:MakeTab({
 		Name = "Scripts / Hubs",
 		Icon = "rbxassetid://4483345998",
@@ -89,32 +92,32 @@ if game.PlaceId == 920587237 then
 	})
 		 -- Scripts & Hubs 
 	ShTab:AddButton({
-		Name = "Diamond Hub                           Credits To [Unimonix#8812]",
+		Name = "Diamond Hub                           Credits To: [Unimonix#8812]",
 		Callback = function()
 			loadstring(game:HttpGet(('https://raw.githubusercontent.com/tinywolf420/V.G-Hub-Reimagined-v2/main/Diamond%20Hub')))()
 		  end   
 	})
 	ShTab:AddButton({
-		Name = "V.G Hub( V.3 )                          Credits To [Unimonix#8812]",
+		Name = "V.G Hub( V.3 )                          Credits To: [Unimonix#8812]",
 		Callback = function()
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/tinywolf420/Lua/main/V.G%20Hub%20Reimagined%20v.3'))()
 		  end   
 	})
 	ShTab:AddButton({
-		Name = "Eclipse-Hub                                          Credits To [Ethanoj1]",
+		Name = "Eclipse-Hub                                          Credits To: [Ethanoj1]",
 		Callback = function()
 			getgenv().mainKey = "nil";
 			local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth";c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
 		  end 
 	})
 	ShTab:AddButton({
-		Name = "Auto Xmas Farm",
+		Name = "Auto Xmas Farm                              Credits To:[Icey#4444]",
 		Callback = function()
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/IceMael7/NewIceHub/main/Brookhaven"))()
 		end  
 	})
 	ShTab:AddButton({
-		Name = "Diamond-Hub                                        Credits To [BloxiYT]",
+		Name = "Diamond-Hub                                        Credits To: [BloxiYT]",
 		Callback = function()
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/BloxiYT/Diamond/main/AdoptMe'))()
 		  end  
@@ -123,7 +126,7 @@ if game.PlaceId == 920587237 then
 		Name = "V                                           Keys Below                                           V"
 	})
 	ShTab:AddButton({
-		Name = "Copy Diamond Key: DH_12FYBG3TGY3BGW [ BloxiYT ]",
+		Name = "Copy Diamond Key:                  { DH_12FYBG3TGY3BGW } ",
 		Callback = function()
 			setclipboard("DH_12FYBG3TGY3BGW")
 			OrionLib:MakeNotification({
@@ -245,11 +248,10 @@ if game.PlaceId == 920587237 then
 			OrionLib:Destroy(OrionLib:Init())
 		end  
 	})
-	local vu = game:GetService("VirtualUser")
-	game:GetService("Players").LocalPlayer.Idled:connect(
-	function()
-	vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-	wait(1)
-	vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
-	end)
+	OrionLib:MakeNotification({
+		Name = "Your Data Has Successfully Loaded",
+		Content = "Thanks For Enjecting Diamond Hub",
+		Image = "rbxassetid://11702783647",
+		Time = 10
+	})
 end
