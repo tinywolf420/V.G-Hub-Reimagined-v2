@@ -4,6 +4,7 @@
 `Revamped Ui` 
 `Layout/Positioning`
 `Added BackGround - Bones & Paws`
+`More BackGround To Come`
 
 # Foods Added
 ***Basic Food's:***
@@ -15,5 +16,6 @@
 `Chocolate Milk`
 `Ham`
 
+*** As i get updates ill add to this hub***
 
 ![VGHUBIMAGE](https://user-images.githubusercontent.com/52361495/207596755-78f290b6-0137-45e2-863f-6a36100f1d50.PNG)
