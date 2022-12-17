@@ -1,6 +1,6 @@
 --[Working V.G-3 Hub]--
 local Config = {
-    WindowName = "☆-V.G Hub Reimagined v.3-☆               ☆-Adopt Me-☆                ☆-Game By: DreamCraft-☆",
+    WindowName = "☆-Diamond Hub v.3-☆                           ☆-Adopt Me-☆                 ☆-Game By: DreamCraft-☆",
     Color = Color3.fromRGB(82, 9, 252),
     Keybind = Enum.KeyCode.RightControl
 }
@@ -446,7 +446,7 @@ local FlyPets = function(A)
 end
 
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tinywolf420/V.G-Hub-Reimagined-v2/main/test"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tinywolf420/V.G-Hub-Reimagined-v2/main/BracketV3"))()
 local Window = Library:CreateWindow(Config, CoreGui)
 
 local Main = Window:CreateTab("Adopt Me")
@@ -1638,7 +1638,9 @@ end)
 local Button1 = Hops:CreateButton("Rejoin", function()
 game:GetService("TeleportService"):Teleport(game.PlaceId, Player) end)
 
-
+local Button1 = MenuTab:CreateButton("Destroy Hub Gui", function()
+    game:GetService("CoreGui").DiamondHub:Destroy()
+end)
 local Button1 = MenuTab:CreateButton("Save Settings", function()
 Save()
 end)
