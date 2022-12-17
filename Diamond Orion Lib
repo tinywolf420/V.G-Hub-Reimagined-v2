@@ -1,0 +1,262 @@
+--[[Adopt Me Only - Cause of: if game.PlaceId == 920587237 then]]--
+if game.PlaceId == 920587237 then
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+	local Window = OrionLib:MakeWindow({Name = "Adopt Me Hub🎅 - By DreamCraft🦴",ConfigFolder = true, HidePremium = false, IntroEnabled = false, SaveConfig = true, ConfigFolder = "Adopt Me Hubz"})
+
+	local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+	local inputService = game:GetService("UserInputService")
+	
+	local Players = game:GetService("Players")
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local ReplicatedFirst = game:GetService("ReplicatedFirst")
+	local UserInputService = game:GetService("UserInputService")
+	local RunService = game:GetService("RunService")
+	local TweenService = game:GetService("TweenService")
+	local Lighting = game:GetService("Lighting")
+	local CoreGui = game:GetService("CoreGui")
+	local HttpService = game:GetService("HttpService")
+	local TeleportService = game:GetService("TeleportService")
+	local Debris = game:GetService("Debris")
+	local StarterGui = game:GetService("StarterGui")
+	local Workspace = game:GetService("Workspace")
+	
+	local Player = Players.LocalPlayer
+	local wait = task.wait
+	
+	local getupvalue = getupvalue or debug.getupvalue
+	local getconstant = getconstant or debug.getconstant
+	
+	local getconstants = getconstants or debug.getconstants
+	local getgc = getgc or get_gc_objects or debug.getgc
+	local getreg = getreg or getregistry or debug.getregistry
+	local get_thread_context = get_thread_context or getthreadcontext or getidentity or syn.get_thread_identity
+	local get_thread_identity = get_thread_context
+	local set_thread_context = set_thread_context or setthreadcontext or setidentity or syn.set_thread_identity
+	local set_thread_identity = set_thread_context
+	
+	local Remotes = {}
+	local Inventorys = ReplicatedStorage.ClientDB.Inventory
+	local InventoryGiftsSubDB = require(Inventorys.InventoryGiftsSubDB)
+	
+	OrionLib:MakeNotification({
+		Name = "You Have Executed Successfully",
+		Content = "Thanks for executing! Hope You Enjoy Your Time Playing With Orion!",
+		Image = "rbxassetid://4483345998",
+		Time = 10
+	})
+
+	_G.AutoHeal = true
+	_G.NoBabyPickUp = true
+
+	function AutoHeal()
+		while _G.AutoHeal == true do
+			wait(.5)
+			ReplicatedStorage.API["MonitorAPI/HealWithDoctor"]:FireServer()
+		end
+	end
+
+	function NoBabyPickUp()
+		while _G.NoBabyPickUp == true do
+			ReplicatedStorage.API["FamilyAPI/CreateFamily"]:InvokeServer()
+			wait(30)
+			ReplicatedStorage.API["FamilyAPI/LeaveFamily"]:InvokeServer()
+		end
+	end
+	local ShTab = Window:MakeTab({
+		Name = "Scripts / Hubs",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	local FarmTab = Window:MakeTab({
+		Name = "Auto Farm",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	local EventTab = Window:MakeTab({
+		Name = "Event Section",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	local FoodTab = Window:MakeTab({
+		Name = "All Buyable Food",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	local LocalTab = Window:MakeTab({
+		Name = "Local Player",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	local DestroyTab = Window:MakeTab({
+		Name = "Destroy Menu Hub",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+		 -- Scripts & Hubs 
+	ShTab:AddButton({
+		Name = "Diamond Hub                           Credits To [Unimonix#8812]",
+		Callback = function()
+			loadstring(game:HttpGet(('https://raw.githubusercontent.com/tinywolf420/V.G-Hub-Reimagined-v2/main/Diamond%20Hub')))()
+		  end   
+	})
+	ShTab:AddButton({
+		Name = "V.G Hub( V.3 )                          Credits To [Unimonix#8812]",
+		Callback = function()
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/tinywolf420/Lua/main/V.G%20Hub%20Reimagined%20v.3'))()
+		  end   
+	})
+	ShTab:AddButton({
+		Name = "Eclipse-Hub                                          Credits To [Ethanoj1]",
+		Callback = function()
+			getgenv().mainKey = "nil";
+			local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth";c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
+		  end 
+	})
+
+	ShTab:AddButton({
+		Name = "Diamond-Hub                                        Credits To [BloxiYT]",
+		Callback = function()
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/BloxiYT/Diamond/main/AdoptMe'))()
+		  end  
+	})
+	local Section = ShTab:AddSection({
+		Name = "V                                           Keys Below                                           V"
+	})
+	ShTab:AddButton({
+		Name = "Copy Diamond Key: DH_12FYBG3TGY3BGW [ BloxiYT ]",
+		Callback = function()
+			setclipboard("DH_12FYBG3TGY3BGW")
+			OrionLib:MakeNotification({
+				Name = "Successfully Copied The Key.",
+				Content = "Thanks From [BloxiYT]-Diamond-hub.",
+				Image = "rbxassetid://4483345998",
+				Time = 10
+			})
+		end  
+	})
+	FarmTab:AddButton({
+		Name = "Auto Ginger Bread Farm",
+		Callback = function()
+			loadstring(game:HttpGet('https://pastebin.com/raw/FCcchsrV'))()
+		end  
+	})
+	
+	FarmTab:AddToggle({
+		Name = "Auto Heal Others",
+		Default = false,
+		Callback = function(Value)
+			_G.AutoHeal = Value
+			AutoHeal()
+		end  
+	})
+	FarmTab:AddToggle({
+		Name = "No Baby Pick Up",
+		Default = false,
+		Callback = function(Value)
+			_G.NoBabyPickUp = Value
+			NoBabyPickUp()
+		end  
+	})
+
+	EventTab:AddButton({
+		Name = "Auto Xmas Farm",
+		Callback = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/IceMael7/NewIceHub/main/Brookhaven"))()
+		end  
+	})
+	 -- FoodTab
+	FoodTab:AddButton({
+		Name = "Buy Apple",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "apple", {})
+		end  
+	})
+	FoodTab:AddButton({
+		Name = "Buy Water",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "water", {})
+		end  
+	})
+	FoodTab:AddButton({
+		Name = "Buy Marshmallow",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "marshmallow_on_a_stick", {})
+		end  
+	})
+	local Section = FoodTab:AddSection({
+		Name = "V                                           Vip Food                                             V"
+	})
+	FoodTab:AddButton({
+		Name = "Buy (VIP-Only) Popcorn",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "popcorn_vip", {})
+		end  
+	})
+	FoodTab:AddButton({
+		Name = "Buy (VIP-Only) Chocolate Milk",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "chocolate_milk", {})
+		end  
+	})
+	FoodTab:AddButton({
+		Name = "Buy (VIP-Only) Ham",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "ham", {})
+		end  
+	})
+	local Section = FoodTab:AddSection({
+		Name = "V                                           Healing Food                                      V"
+	})
+	FoodTab:AddButton({
+		Name = "Buy Golden Apple",
+		Callback = function()
+			ReplicatedStorage.API["ShopAPI/BuyItem"]:InvokeServer("food", "healing_apple", {})
+		end  
+	})
+
+		-- Local Player Tab
+	LocalTab:AddSlider({
+		Name = "Walk Speed",
+		Min = 1,
+		Max = 200,
+		Default = 16,
+		Color = Color3.fromRGB(255,255,255),
+		Increment = 1,
+		ValueName = "Default = 16: Speed Range 1 To 200",
+		Callback = function(Value)
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(Value)
+		end    
+	})
+	LocalTab:AddSlider({
+		Name = "Gravity",
+		Min = -100,
+		Max = 196,
+		Default = 196,
+		Color = Color3.fromRGB(255,255,255),
+		Increment = 1,
+		ValueName = "Default = 196: Gravity Range 196 To -100",
+		Callback = function(Value)
+			game.workspace.Gravity = tonumber(Value)
+	
+		end    
+	})
+	DestroyTab:AddButton({
+		Name = "Rejoin Server",
+		Callback = function()
+			game:GetService("TeleportService"):Teleport(game.PlaceId, Player)
+		end  
+	})
+	DestroyTab:AddButton({
+		Name = "Destroy Menu",
+		Callback = function()
+			OrionLib:Destroy(OrionLib:Init())
+		end  
+	})
+	local vu = game:GetService("VirtualUser")
+	game:GetService("Players").LocalPlayer.Idled:connect(
+	function()
+	vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	wait(1)
+	vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	end)
+end
