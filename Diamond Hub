@@ -1649,8 +1649,7 @@ Toggle3:CreateKeybind(tostring(Config.Keybind):gsub("Enum.KeyCode.", ""), functi
 	Config.Keybind = Enum.KeyCode[Key]
 end)
 Toggle3:SetState(true)
-MenuTab:CreateLabel("Credits DekuDimz#7960 Scripter")
-MenuTab:CreateLabel("Credits Unimonix#8812 Ui Layout")
+MenuTab:CreateLabel("Credits Unimonix#8812 Scripter")
 MenuTab:CreateLabel("Credits AlexR32#3232 Ui Creator")
 MenuTab:CreateLabel("Credits Applebee")
 local Colorpicker3 = MenuTab:CreateColorpicker("UI Color", function(Color)
@@ -1659,7 +1658,7 @@ end)
 Colorpicker3:UpdateColor(Config.Color)
 
 -- credits to jan / Uni for patterns
-local Dropdown3 = BackGroundTab:CreateDropdown("Image", {"Bones & Paws","Christmas","Rain Drops","Cyphered Code","Cyphered Code v2","Shakura","Rgb Triangle","RGB VG Hub","VG Hub","Hearts","Abstract","Hexagon","Circles","Halloween","Lace With Flowers","Floral"}, function(Name)
+local Dropdown3 = BackGroundTab:CreateDropdown("Image", {"Bones & Paws","Christmas","Rain Drops","Cyphered Code","Cyphered Code v2","Shakura","Rgb Triangle","Hearts","Abstract","Hexagon","Circles","Halloween","Lace With Flowers","Floral"}, function(Name)
 	if Name == "Bones & Paws" then
 		Window:SetBackground("11702783647")
     elseif Name == "Christmas" then
@@ -1674,10 +1673,6 @@ local Dropdown3 = BackGroundTab:CreateDropdown("Image", {"Bones & Paws","Christm
 		Window:SetBackground("11829051667")
     elseif Name == "Rgb Triangle" then
 		Window:SetBackground("11838678736")
-    elseif Name == "RGB VG Hub" then
-		Window:SetBackground("11838828398")
-    elseif Name == "VG Hub" then
-		Window:SetBackground("2151741365")
 	elseif Name == "Hearts" then
 		Window:SetBackground("6073763717")
 	elseif Name == "Abstract" then
