@@ -72,11 +72,6 @@ if game.PlaceId == 920587237 then
 		Icon = "rbxassetid://4483345998",
 		PremiumOnly = false
 	})
-	local EventTab = Window:MakeTab({
-		Name = "Event Section",
-		Icon = "rbxassetid://4483345998",
-		PremiumOnly = false
-	})
 	local FoodTab = Window:MakeTab({
 		Name = "All Buyable Food",
 		Icon = "rbxassetid://4483345998",
@@ -112,7 +107,12 @@ if game.PlaceId == 920587237 then
 			local a,b,c,d,e=loadstring,request or http_request or (http and http.request) or (syn and syn.request),assert,tostring,"https://api.eclipsehub.xyz/auth";c(a and b,"Executor not Supported")a(b({Url=e.."\?\107e\121\61"..d(mainKey),Headers={["User-Agent"]="Eclipse"}}).Body)()
 		  end 
 	})
-
+	ShTab:AddButton({
+		Name = "Auto Xmas Farm",
+		Callback = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/IceMael7/NewIceHub/main/Brookhaven"))()
+		end  
+	})
 	ShTab:AddButton({
 		Name = "Diamond-Hub                                        Credits To [BloxiYT]",
 		Callback = function()
@@ -155,13 +155,6 @@ if game.PlaceId == 920587237 then
 		Callback = function(Value)
 			_G.NoBabyPickUp = Value
 			NoBabyPickUp()
-		end  
-	})
-
-	EventTab:AddButton({
-		Name = "Auto Xmas Farm",
-		Callback = function()
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/IceMael7/NewIceHub/main/Brookhaven"))()
 		end  
 	})
 	 -- FoodTab
