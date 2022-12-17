@@ -98,12 +98,6 @@ if game.PlaceId == 920587237 then
 		  end   
 	})
 	ShTab:AddButton({
-		Name = "V.G Hub( V.3 )                          Credits To: [Unimonix#8812]",
-		Callback = function()
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/tinywolf420/Lua/main/V.G%20Hub%20Reimagined%20v.3'))()
-		  end   
-	})
-	ShTab:AddButton({
 		Name = "Eclipse-Hub                                          Credits To: [Ethanoj1]",
 		Callback = function()
 			getgenv().mainKey = "nil";
